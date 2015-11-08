@@ -1,0 +1,141 @@
+module nat
+
+import bool
+import pair
+import list
+
+||| A data type to represent the natural numbers.  We use a lower case
+||| "n" in the name to distinguish our nat type from Idris's Nat type
+data nat = O | S nat
+
+-- zero
+z: nat
+z = O
+
+-- one
+o: nat
+o = S O
+
+-- two
+t: nat
+t = S (S O)
+
+-- three
+r: nat
+r = S t
+
+-- four
+f: nat
+f = S r
+
+-- five
+v: nat
+v = S f
+
+||| returns true if the argument is (represents) zero, otherwise false
+isZero: nat -> bool
+isZero O = true
+isZero _ = false
+
+x: bool
+x = isZero r
+
+||| returns the successor of any given nat
+succ: nat -> nat
+succ n = S n
+
+y: nat
+y = succ O
+
+||| returns the predecessor of any given nat
+pred: nat -> nat
+pred O = O
+pred (S n) = n
+
+||| return true if the argument is even otherwise false
+evenb: nat -> bool
+evenb O = true
+evenb (S O) = false
+evenb (S (S n)) = evenb n
+
+oddb: nat -> bool
+oddb n = not (evenb n)
+
+a: bool
+a = evenb O
+
+b: bool
+b = evenb (S O)
+
+c: bool
+c = evenb (S (S O))
+
+d: bool
+d = evenb r
+
+e: bool
+e = evenb (S r)
+
+
+||| given a pair of natural numbers, return its sum
+addp: pair nat nat -> nat
+addp (mkPair O m) = m
+addp (mkPair (S n) m) = S(addp (mkPair n m))
+
+
+||| given a pair of natural numbers, return its product
+multp: pair nat nat -> nat
+multp (mkPair O m) = O
+multp (mkPair (S n) m) = addp (mkPair (multp (mkPair n m)) m)
+
+factp: nat -> nat
+factp O = (S O)
+factp (S n') = multp (mkPair (S n') (factp n'))
+
+||| Given a pair of natural numbers, (a,b), return a-b
+||| If a <=b, the answer will be O.
+subp: pair nat nat -> nat
+subp (mkPair O m) = O
+subp (mkPair n O) = n
+subp (mkPair (S n) (S m)) = subp (mkPair n m)
+
+||| Given a pair of natural numbers, (a,b), return true
+||| if a <= b otherwise return false
+lep: pair nat nat -> bool
+lep (mkPair O m) = true
+lep (mkPair (S n) O) = false
+lep (mkPair (S n) (S m)) = lep (mkPair n m)
+
+exp: pair nat nat -> nat
+exp (mkPair O b) = O
+exp (mkPair a O) = S O
+exp (mkPair a (S b)) = multp (mkPair (exp (mkPair a b)) a)
+exp (mkPair (S a) b) = multp (mkPair (exp (mkPair a b)) (S O))
+
+eqp: pair nat nat -> bool
+eqp (mkPair O O) = true
+eqp (mkPair (S n) O) = false
+eqp (mkPair O (S m)) = false
+eqp (mkPair (S n) (S m)) = eqp (mkPair n m)
+
+gtp: pair nat nat -> bool
+gtp (mkPair O O) = false
+gtp (mkPair O m) = false
+gtp (mkPair n O) = true
+gtp (mkPair (S n) (S m)) = gtp (mkPair n m)
+
+gep: pair nat nat -> bool
+gep (mkPair O O) = true
+gep (mkPair O m) = false
+gep (mkPair (S n) O) = true
+gep (mkPair (S n) (S m)) = gep (mkPair n m)
+
+ltp: pair nat nat -> bool
+ltp (mkPair O O) = false
+ltp (mkPair O m) = true
+ltp (mkPair n O) = false
+ltp (mkPair (S n) (S m)) = ltp (mkPair n m)
+
+append: pair list list -> list
+append (mkPair m nil) = m
+append (mkPair (S m) (S n) = O

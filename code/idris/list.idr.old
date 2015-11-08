@@ -1,0 +1,41 @@
+module list
+
+import nat
+import prac3
+
+infixr 7 ::
+
+data list a = nil | (::) a (list a)
+
+len: list a -> nat
+len nil  = O
+len n :: l' = S(len l')
+
+len_l3: nat
+len_l3 = len l3
+
+append: list a -> list a -> list a
+append nil nil = nil
+append nil (h :: t) = (h :: t)
+append (h :: t) nil = (h :: t)
+append (h :: t) (h' :: t') = (h :: (append t (h' :: t')))
+
+t1: list nat
+t1 = append nil nil
+
+t2: list nat
+t2 = append ((S O) :: nil) nil
+
+t3: list nat
+t3 = append ((S O) :: nil) ((S O) :: nil)
+
+t4: list nat
+t4 = append ((S(S O)) :: (S O) :: nil)) ((S(S(S(S O)))) :: nil)
+
+t5: nat
+t5 = len ((spring) :: nil)
+--- expecting S O
+
+t6: list seasons
+t6 = append ((spring) :: nil) ((summer) :: nil)
+--- expecting cons(spring) (cons(summer) nil
