@@ -249,6 +249,7 @@ set_member v (mkSet l) = member v l
 -- set_union: (s1: set a) -> (s2: set a) -> set a
 
 combine: (eq a) => (list a) -> (list a) -> (list a)
+combine l nil = l
 combine l (h::t) = ite (member h l) (combine l t) (l++(h::t))
 
 -- hint, write a function, combine, that combines two
@@ -308,8 +309,9 @@ set_exists p (mkSet l) = member true (map p l)
 list_exists: (p: a -> bool) -> (l: list a) -> bool
 list_exists p l = member true (map p l)
 
-list_witness: (p: a -> bool) -> (l: list a) -> option a
-list_witness p (h::t) = ite (list_exists p (h::t)) (some h) (list_witness p t)
+list_witness: (a -> bool) -> list a -> option a
+list_witness p nil = none
+list_witness p (h::t) = ite (p h) (some h) (list_witness p t)
 
 -- set_witness: (p: a -> bool) -> (s: set a) -> option a
 
@@ -375,5 +377,3 @@ toStringSet (mkSet l) = toStringList l
 -- the functions in this module. Put tests in set_adt_test.idr.
 -- Indicate the expected value of each test in a corresponding
 -- comment.
-
-
