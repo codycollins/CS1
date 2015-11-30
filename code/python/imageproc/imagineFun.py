@@ -13,7 +13,7 @@ import image_processing as ip
 # sets runDone flag to true so app will exit
 #
 def exit(state):
-    state['runDone'] = True
+    state.runDone = True
     return state
 
 ################################################################
@@ -22,8 +22,8 @@ def exit(state):
 # resets processed image to original
 #
 def reset(state):
-    state['processed'] = state['original'].copy()
-    state['needsDisplayUpdate'] = True
+    state.processed = state.original.copy()
+    state.needsDisplayUpdate = True
     return state
 
 ################################################################
@@ -32,8 +32,8 @@ def reset(state):
 # applies invert operation to processed image
 #
 def negative(state):
-    (ip.invert)(state['processed'])
-    state['needsDisplayUpdate'] = True
+    (ip.invert)(state.processed)
+    state.needsDisplayUpdate = True
     return state
 
 ################################################################
@@ -45,9 +45,9 @@ def load(state):
     print("Enter name of image file to load: ")
     imageName = input()
     resetImage = dw.loadImage(imageName)
-    state['original'] = resetImage
-    state['processed'] = state['original'].copy()
-    state['needsDisplayUpdate'] = True
+    state.original = resetImage
+    state.processed = state.original.copy()
+    state.needsDisplayUpdate = True
     return state
 
 ################################################################
@@ -68,18 +68,18 @@ def badChoice(state):
     return state
 
 def bwconvert(state):
-    (ip.bw)(state['processed'])
-    state['needsDisplayUpdate'] = True
+    (ip.bw)(state.processed)
+    state.needsDisplayUpdate = True
     return state
 
 def lighten(state):
-    (ip.lighten)(state['processed'])
-    state['needsDisplayUpdate'] = True
+    (ip.lighten)(state.processed)
+    state.needsDisplayUpdate = True
     return state
 
 def darken(state):
-    (ip.darken)(state['processed'])
-    state['needsDisplayUpdate'] = True
+    (ip.darken)(state.processed)
+    state.needsDisplayUpdate = True
     return state
 
 ################################################################

@@ -49,10 +49,10 @@ def lighter(pixel):
     r = int(pixel[0]) + 10
     if (r > 255):
         r = 255
-    g = int(pixel[0]) + 10
+    g = int(pixel[1]) + 10
     if (g > 255):
         g = 255
-    b = int(pixel[0]) + 10
+    b = int(pixel[2]) + 10
     if (b > 255):
         b = 255
     return (r,g,b)
@@ -61,10 +61,10 @@ def darker(pixel):
     r = int(pixel[0]) - 10
     if (r < 0):
         r = 0
-    g = int(pixel[0]) - 10
+    g = int(pixel[1]) - 10
     if (g < 0):
         g = 0
-    b = int(pixel[0]) - 10
+    b = int(pixel[2]) - 10
     if (b < 0):
         b = 0
     return (r,g,b)
